@@ -13,3 +13,5 @@ It is a personal "superset" to MiniScript, designed to be a sort of middle groun
 When using MiniScript, I found that many times I was like "using end for to close a loop seems too clunky for me, i'm used to braces !"
 
 Thus, I made MicroScript, essentially MiniScript with braces (and some other **syntax** changes) (a big emphase on the **SYNTAX** changes: MiniScript and MicroScript both uses the **same environement** and are meant to **cohexist**)
+
+That means you can load both MiniScript and MicroScript files with the same context.
