@@ -1,3 +1,9 @@
+<p align="center">
+  <img src="images/readme/icon.png" alt="Mininter logo (AI generated)" width="700">
+  <br>
+  <em>Mininter logo (AI generated)</em>
+</p>
+
 # mininter
 
 Rust MiniScript & MicroScript interpreter and semi compiler
