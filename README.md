@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="images/readme/icon.png" alt="Mininter logo (AI generated)" width="500">
+  <img src="images/readme/icon.png" alt="Mininter logo (AI generated)" width="300">
   <br>
   <em>Mininter logo (AI generated)</em>
 </p>
