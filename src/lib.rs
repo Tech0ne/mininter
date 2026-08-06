@@ -1,6 +1,9 @@
-pub mod prelude;
+mod compiler;
+mod scanner;
+mod vm;
 
 mod core;
 
-// mod microscript;
-mod miniscript;
+mod error;
+
+pub mod prelude;

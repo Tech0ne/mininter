@@ -6,7 +6,7 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     if args.len() != 2 {
-        eprintln!("Usage: {}, <miniscript code>", args[0]);
+        eprintln!("Usage: {}, <miniscript file>", args[0]);
         process::exit(1);
     }
 
@@ -29,10 +29,17 @@ fn main() {
     let lexer = Lexer::new(&code);
 
     for token in lexer {
-        if let TokenKind::NewLine = token.kind {
-            println!();
-        } else {
-            println!("{}", token);
+        match token {
+            Ok(t) => {
+                if let TokenKind::NewLine = t.kind {
+                    println!();
+                } else {
+                    println!("{}", t);
+                }
+            }
+            Err(e) => {
+                eprintln!("{}", e);
+            }
         }
     }
 }

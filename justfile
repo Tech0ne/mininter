@@ -26,6 +26,16 @@ example system example mode="debug":
 clean:
     cargo clean
 
+[doc("Build doc using mdBook")]
+[group('dev')]
+doc:
+    mdbook build docs
+
+[doc("Build doc using mdBook and serve it. Live reload")]
+[group('dev')]
+doc-serve:
+    mdbook serve docs
+
 [doc("Rebuild the tool each time a change/file add is detected")]
 [group('dev')]
 [linux]
