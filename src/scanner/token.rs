@@ -2,6 +2,8 @@ use std::fmt::Display;
 
 use crate::core::number::Float;
 
+// #region TokenKind
+
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum TokenKind<'src> {
     LeftParen,    // (
@@ -68,6 +70,10 @@ pub enum TokenKind<'src> {
 
     EOF,
 }
+
+// #endregion
+
+// #region TokenKind Display
 
 impl<'src> Display for TokenKind<'src> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -139,6 +145,10 @@ impl<'src> Display for TokenKind<'src> {
     }
 }
 
+// #endregion
+
+// #region Token
+
 pub struct Token<'src> {
     kind: TokenKind<'src>,
     line: usize,
@@ -154,6 +164,10 @@ impl<'src> Token<'src> {
         }
     }
 
+    pub fn kind(&self) -> TokenKind {
+        self.kind
+    }
+
     pub fn line(&self) -> usize {
         self.line
     }
@@ -167,6 +181,10 @@ impl<'src> Token<'src> {
     }
 }
 
+// #endregion
+
+// #region Token Display
+
 impl<'src> Display for Token<'src> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self.prev_line {
@@ -179,3 +197,5 @@ impl<'src> Display for Token<'src> {
         }
     }
 }
+
+// #endregion

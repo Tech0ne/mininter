@@ -1,6 +1,7 @@
 use mininter::prelude::*;
 
 use clap::{CommandFactory, Parser, ValueEnum};
+use std::io::{self, Write};
 use std::path::{Path, PathBuf};
 use std::time::Instant;
 
@@ -55,35 +56,40 @@ impl Cli {
 }
 
 fn compile(path: impl AsRef<Path>) {
-    // TODO: implement "semi-compilation"
-    println!("Compiling file {}", path.as_ref().display());
+    todo!("compile file");
 }
 
-// TODO: actually use the required context
-#[derive(Debug, Default)]
-struct Context(u8);
-
-fn run(context: &mut Option<Context>, path: impl AsRef<Path>) {
-    // TODO: implement running
-    let ctx = context.get_or_insert(Context::default());
-    ctx.0 += 1;
-
-    println!(
-        "Running from file {} with context {:?}",
-        path.as_ref().display(),
-        ctx
-    );
+fn run(vm: &mut Option<Vm>, path: impl AsRef<Path>) {
+    todo!("run a file");
 }
 
-fn repl(context: &mut Option<Context>) {
-    // TODO: implement REPL
-    let ctx = context.get_or_insert(Context::default());
-    ctx.0 += 1;
+fn repl(vm: &mut Option<Vm>) -> io::Result<()> {
+    let vm = vm.get_or_insert(Vm::new());
 
-    println!("Starting REPL from context {:?}", ctx);
+    loop {
+        print!("> ");
+        io::stdout().flush()?;
+
+        let mut line = String::new();
+        if io::stdin().read_line(&mut line).unwrap() == 0 {
+            break;
+        }
+
+        let mut scanner = Scanner::new(&line);
+        let compiler = Compiler::new(&mut scanner)
+            .map_err(|e| io::Error::new(io::ErrorKind::NotFound, e.to_string()))?;
+        vm.run(
+            &compiler
+                .compile()
+                .map_err(|e| io::Error::new(io::ErrorKind::Other, e.to_string()))?,
+        )
+        .map_err(|e| io::Error::new(io::ErrorKind::Other, e.to_string()))?;
+    }
+
+    Ok(())
 }
 
-fn main() {
+fn main() -> io::Result<()> {
     let start = Instant::now();
     let mut context = None;
 
@@ -122,7 +128,10 @@ fn main() {
     }
 
     if cli.interactive {
-        repl(&mut context);
+        repl(&mut context)?;
+    } else {
+        println!("Running took {:?}", start.elapsed());
     }
-    println!("Running took {:?}", start.elapsed());
+
+    Ok(())
 }

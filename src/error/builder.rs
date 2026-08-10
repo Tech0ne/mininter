@@ -4,7 +4,8 @@ macro_rules! errors {
             #[derive(Debug, Default)]
             pub enum ErrorKind {
                 #[default]
-                Raw,
+                RawError,
+                StdIoError,
                 $(
                     [<$name Error>],
                 )*
@@ -50,12 +51,12 @@ macro_rules! errors {
             }
 
             impl Error {
-                pub fn line_infos(line_nb: usize, line: impl Into<String>, span: (usize, usize)) -> Option<LineInfos> {
-                    Some(LineInfos{
+                pub fn line_infos(line_nb: usize, line: impl Into<String>, span: (usize, usize)) -> LineInfos {
+                    LineInfos {
                         line_nb,
                         line: line.into(),
                         span,
-                    })
+                    }
                 }
 
                 $(

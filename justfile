@@ -21,10 +21,11 @@ build mode="debug":
 example system example mode="debug":
     cargo run -p {{ system }} --example {{ example }} {{ if mode == "release" { "--release" } else { "" } }}
 
-[doc("Remove build directory")]
+[doc("Cleans up the work directory")]
 [group('clean')]
 clean:
     cargo clean
+    rm -rf ./docs/book/
 
 [doc("Build doc using mdBook")]
 [group('dev')]

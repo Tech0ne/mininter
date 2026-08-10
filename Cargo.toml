@@ -5,6 +5,11 @@ edition = "2024"
 
 [dependencies]
 paste = "1.0.15"
+mininter-macros = { path = "./mininter-macros", optional = true }
 
 [dev-dependencies]
 clap = { version = "4.6.4", features = ["derive"] }
+
+[features]
+default = ["macros"]
+macros = ["dep:mininter-macros"]

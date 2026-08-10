@@ -115,8 +115,13 @@ name = "mininter"
 version = "0.1.0"
 dependencies = [
  "clap",
+ "mininter-macros",
  "paste",
 ]
+
+[[package]]
+name = "mininter-macros"
+version = "0.1.0"
 
 [[package]]
 name = "once_cell_polyfill"

@@ -1,9 +1,10 @@
-mod token;
+pub mod token;
+
 use token::Token;
 
 use crate::{
     core::number::Float,
-    error::{Error, Result},
+    error::{Error, LineInfos, Result},
     scanner::token::TokenKind,
 };
 
@@ -41,6 +42,10 @@ impl<'src> Scanner<'src> {
             line_start: 0,
             current_char: source.chars().next(),
         }
+    }
+
+    pub fn line_infos(&self) -> LineInfos {
+        Error::line_infos(self.line, self.get_line(), (self.current, 1))
     }
 
     // #region Getters extended
@@ -232,7 +237,11 @@ impl<'src> Scanner<'src> {
             |e| {
                 Error::parse(
                     format!("failed to parse number: {}", e),
-                    Error::line_infos(self.line, self.get_line(), (self.start, self.column())),
+                    Some(Error::line_infos(
+                        self.line,
+                        self.get_line(),
+                        (self.start, self.column()),
+                    )),
                 )
             },
         )?))
@@ -261,7 +270,11 @@ impl<'src> Scanner<'src> {
 
             return Err(Error::parse(
                 "missing closing '\"'",
-                Error::line_infos(line_nb, line, (column, line.len() - column)),
+                Some(Error::line_infos(
+                    line_nb,
+                    line,
+                    (column, line.len() - column),
+                )),
             ));
         }
 
@@ -269,6 +282,8 @@ impl<'src> Scanner<'src> {
     }
 
     // #endregion
+
+    // #region Next Token
 
     fn next_token(&mut self) -> Result<Token<'src>> {
         self.skip_whitespaces();
@@ -281,7 +296,11 @@ impl<'src> Scanner<'src> {
         let Some(ch) = self.advance() else {
             return Err(Error::parse(
                 "failed to retreive current char, while not at end",
-                Error::line_infos(self.line, self.get_line(), (self.column(), self.column())),
+                Some(Error::line_infos(
+                    self.line,
+                    self.get_line(),
+                    (self.column(), self.column()),
+                )),
             ));
         };
 
@@ -362,11 +381,11 @@ impl<'src> Scanner<'src> {
                 _ => {
                     return Err(Error::parse(
                         format!("unexpected character: \"{}\"", ch),
-                        Error::line_infos(
+                        Some(Error::line_infos(
                             self.line,
                             self.get_line(),
                             (self.column(), self.column()),
-                        ),
+                        )),
                     ));
                 }
             },
@@ -374,6 +393,11 @@ impl<'src> Scanner<'src> {
         ))
     }
 }
+
+// #endregion
+
+// #region Iterator
+
 impl<'src> Iterator for Scanner<'src> {
     type Item = Result<Token<'src>>;
 
@@ -390,3 +414,5 @@ impl<'src> Iterator for Scanner<'src> {
         }
     }
 }
+
+// #endregion

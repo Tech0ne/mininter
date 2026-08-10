@@ -18,6 +18,10 @@ impl Float {
         self.0
     }
 
+    pub fn get_mut(&mut self) -> &mut f64 {
+        &mut self.0
+    }
+
     fn canonical_bits(self) -> u64 {
         if self.0.is_nan() {
             // Canonical quiet NaN
