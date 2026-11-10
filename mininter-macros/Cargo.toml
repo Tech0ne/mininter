@@ -1,6 +1,6 @@
 [package]
 name = "mininter-macros"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = "#[api] procedural macro, making api integrations with MinInter really easy"
 license = "MIT"
