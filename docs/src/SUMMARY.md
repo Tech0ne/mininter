@@ -7,6 +7,6 @@
 
 ## Language
 
-- [Reference](https://miniscript.org/)
+- [Reference](https://miniscript.org)
 
 ## Examples
