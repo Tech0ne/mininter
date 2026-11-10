@@ -5,10 +5,8 @@
 - [Introduction](./overview/introduction.md)
 - [How to use](./overview/how_to_use.md)
 
-## Language(s)
+## Language
 
-### MiniScript
-
-### MicroScript
+- [Reference](https://miniscript.org/files/MiniScript-Manual.pdf)
 
 ## Examples

@@ -4,4 +4,6 @@ Here is a brief overview of how to use Mininter in your own project
 
 ## Add it to your Cargo.toml
 
+`cargo add mininter`
+
 # TODO
