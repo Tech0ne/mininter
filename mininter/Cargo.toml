@@ -2,6 +2,11 @@
 name = "mininter"
 version = "0.1.0"
 edition = "2024"
+description = "A MiniScript compiler/interpreter, writen in pure rust, with easy to use API"
+license = "MIT"
+
+repository = "https://github.com/Tech0ne/mininter"
+authors = ["Tech0ne"]
 
 [dependencies]
 mininter-macros = { version = "0.1.0", optional = true }

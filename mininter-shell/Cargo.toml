@@ -2,6 +2,11 @@
 name = "mininter-shell"
 version = "0.1.0"
 edition = "2024"
+description = "A standalone MiniScript runner/compiler/repl using MinInter"
+license = "MIT"
+
+repository = "https://github.com/Tech0ne/mininter"
+authors = ["Tech0ne"]
 
 [dependencies]
 mininter = "0.1.0"
